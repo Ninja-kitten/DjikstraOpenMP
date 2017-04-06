@@ -5,9 +5,8 @@
 #include <time.h>
 using namespace std;
 int main(int argc, char** argv){
-
-omp_set_num_threads(30);
-
+//omp_set_num_threads(30);
+/*
 clock_t end10,beg10,end100,beg100,end1000,beg1000;
 //set up the problem for 10 vertices
 graphgen graph10(10);
@@ -49,19 +48,23 @@ end1000 = clock()-beg1000;
 cout<<(float(end10)/CLOCKS_PER_SEC)<<endl;
 cout<<(float(end100)/CLOCKS_PER_SEC)<<endl;
 cout<<(float(end1000)/CLOCKS_PER_SEC)<<endl;
-/*
-int size[10] = {10,100,1000,10000,100000,1000000,10000000,100000000,1000000000,10000000000};
+*/
+int threads[5] = {1,2,10,20,30};
+int size[10] = {10,100,1000,10000,100000,1000000,10000000,100000000,1000000000,2000000000};
 clock_t time[10];
 int decision = 0;
-for(int i = 0; i<10; ++i){
+for(int j = 0; j<5;++j){
+   omp_set_num_threads(threads[j]);
+   for(int i = 0; i<4; ++i){
   graphgen graph(size[i]);
   int** g;
   g = graph.gengraph(decision);
   Djikstra d(size[i]);
   //timestamps
   time[i] = clock();
-  d1000.execute(g1000);
+  d.execute(g);
   time[i] = clock()-time[i];
-  cout<<size<<"\t"<<time[i]<<endl;
-}*/
+  cout<<threads[j]<<","<<size[i]<<","<<(float(time[i])/CLOCKS_PER_SEC)<<endl;
+}
+}
 }
