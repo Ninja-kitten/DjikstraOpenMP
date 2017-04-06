@@ -119,6 +119,7 @@ int* Djikstra::execute(int** graph)
 		//end of for loop
 	}
 	delete [] connected;
+	
 	return mind;
 }
 
